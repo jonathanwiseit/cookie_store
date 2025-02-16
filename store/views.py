@@ -1,15 +1,15 @@
-from django.shortcuts import render
-from django.http import JsonResponse
-from .models import Customer, Cookie, Order, OrderItem
+from rest_framework import viewsets
+from .models import Customer, Cookie, Order
+from .serializers import CustomerSerializer, CookieSerializer, OrderSerializer
 
-def customer_list(request):
-    customers = list(Customer.objects.values())
-    return JsonResponse({'customers': customers})
+class CustomerViewSet(viewsets.ModelViewSet):
+    queryset = Customer.objects.all()
+    serializer_class = CustomerSerializer
 
-def cookie_list(request):
-    cookies = list(Cookie.objects.values())
-    return JsonResponse({'cookies': cookies})
+class CookieViewSet(viewsets.ModelViewSet):
+    queryset = Cookie.objects.all()
+    serializer_class = CookieSerializer
 
-def order_list(request):
-    orders = list(Order.objects.values())
-    return JsonResponse({'orders': orders})
+class OrderViewSet(viewsets.ModelViewSet):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
